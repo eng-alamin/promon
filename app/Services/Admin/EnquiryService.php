@@ -8,18 +8,11 @@ use App\Enums\EnquiryChannel;
 use App\Enums\EnquiryStatus;
 use App\Models\Customer;
 use App\Models\Enquiry;
-use App\Models\EnquiryItem;
-use App\Models\Product;
 use App\Models\User;
-use App\Services\PriceResolver;
 use Illuminate\Support\Facades\DB;
 
 class EnquiryService
 {
-    public function __construct(private readonly PriceResolver $prices)
-    {
-    }
-
     /**
      * Change the status. The first staff member who moves a new enquiry on becomes its handler.
      */
@@ -35,13 +28,13 @@ class EnquiryService
     }
 
     /**
-     * Delete an enquiry and its product list for good. Only super admins may call this
+     * Delete an enquiry and its category links for good. Only super admins may call this
      * (checked in the Livewire action). Staff use the Closed status instead.
      */
     public function delete(Enquiry $enquiry): void
     {
         DB::transaction(function () use ($enquiry): void {
-            $enquiry->items()->delete();
+            $enquiry->categories()->detach();
             $enquiry->delete();
         });
     }
@@ -58,14 +51,14 @@ class EnquiryService
 
     /**
      * Create an enquiry typed in by staff (for example a phone call).
-     * The unit price of every item is saved as it is in the catalogue today.
+     * An enquiry has only categories and a message: no products, prices or totals.
      *
      * @param  Customer|array<string, mixed>  $customer  An existing customer, or the data of a new one
-     * @param  array<int, array{product_id: int|string, quantity: int|string}>  $items
+     * @param  array<int, int|string>  $categoryIds
      */
-    public function createManual(Customer|array $customer, array $items, ?string $message, User $handler): Enquiry
+    public function createManual(Customer|array $customer, array $categoryIds, ?string $message, User $handler): Enquiry
     {
-        return DB::transaction(function () use ($customer, $items, $message, $handler): Enquiry {
+        return DB::transaction(function () use ($customer, $categoryIds, $message, $handler): Enquiry {
             $customerModel = $customer instanceof Customer ? $customer : Customer::create($customer);
 
             $enquiry = Enquiry::create([
@@ -76,19 +69,7 @@ class EnquiryService
                 'message' => $message,
             ]);
 
-            $products = Product::whereIn('id', array_column($items, 'product_id'))->get()->keyBy('id');
-
-            foreach ($items as $item) {
-                $product = $products->get((int) $item['product_id']);
-                $quantity = (int) $item['quantity'];
-
-                EnquiryItem::create([
-                    'enquiry_id' => $enquiry->id,
-                    'product_id' => $product->id,
-                    'quantity' => $quantity,
-                    'unit_price' => $this->prices->unitPrice($product, $quantity),
-                ]);
-            }
+            $enquiry->categories()->sync(array_values(array_unique(array_map('intval', $categoryIds))));
 
             return $enquiry;
         });

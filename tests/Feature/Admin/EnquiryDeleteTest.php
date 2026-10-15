@@ -9,9 +9,9 @@ use App\Livewire\Admin\Enquiries\EnquiryShow;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Enquiry;
-use App\Models\EnquiryItem;
-use App\Models\Product;
 use App\Models\User;
+use App\Services\Admin\CategoryService;
+use DomainException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -22,19 +22,20 @@ class EnquiryDeleteTest extends TestCase
 
     private Enquiry $enquiry;
 
+    private Category $category;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $customer = Customer::create(['contact_name' => 'Rahim Uddin', 'phone' => '01711111111']);
-        $category = Category::create(['name' => 'Supplements', 'slug' => 'supplements']);
-        $product = Product::create(['category_id' => $category->id, 'name' => 'Fish Oil', 'slug' => 'fish-oil', 'price' => 7.25]);
+        $this->category = Category::create(['name' => 'Supplements', 'slug' => 'supplements']);
 
         $this->enquiry = Enquiry::create(['customer_id' => $customer->id])->fresh();
-        EnquiryItem::create(['enquiry_id' => $this->enquiry->id, 'product_id' => $product->id, 'quantity' => 12, 'unit_price' => 7.25]);
+        $this->enquiry->categories()->sync([$this->category->id]);
     }
 
-    public function test_a_super_admin_can_delete_an_enquiry_with_its_items(): void
+    public function test_a_super_admin_can_delete_an_enquiry_with_its_category_links(): void
     {
         $this->actingAs(User::factory()->create(['role' => UserRole::SuperAdmin]));
 
@@ -45,9 +46,9 @@ class EnquiryDeleteTest extends TestCase
             ->assertRedirect(route('admin.enquiries.index'));
 
         $this->assertDatabaseMissing('enquiries', ['id' => $this->enquiry->id]);
-        $this->assertDatabaseMissing('enquiry_items', ['enquiry_id' => $this->enquiry->id]);
+        $this->assertDatabaseMissing('category_enquiry', ['enquiry_id' => $this->enquiry->id]);
         $this->assertDatabaseHas('customers', ['contact_name' => 'Rahim Uddin']);
-        $this->assertDatabaseHas('products', ['slug' => 'fish-oil']);
+        $this->assertDatabaseHas('categories', ['slug' => 'supplements']);
     }
 
     public function test_cancel_keeps_the_enquiry(): void
@@ -79,5 +80,16 @@ class EnquiryDeleteTest extends TestCase
             ->assertForbidden();
 
         $this->assertDatabaseHas('enquiries', ['id' => $this->enquiry->id]);
+    }
+
+    public function test_a_category_used_by_an_enquiry_cannot_be_deleted(): void
+    {
+        $this->expectException(DomainException::class);
+
+        try {
+            app(CategoryService::class)->delete($this->category);
+        } finally {
+            $this->assertDatabaseHas('categories', ['id' => $this->category->id]);
+        }
     }
 }

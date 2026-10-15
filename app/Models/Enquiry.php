@@ -8,7 +8,7 @@ use App\Enums\EnquiryChannel;
 use App\Enums\EnquiryStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Enquiry extends Model
@@ -50,8 +50,11 @@ class Enquiry extends Model
         return $this->belongsTo(User::class, 'handled_by');
     }
 
-    public function items(): HasMany
+    /**
+     * The categories the customer asked about, in the same order as the website.
+     */
+    public function categories(): BelongsToMany
     {
-        return $this->hasMany(EnquiryItem::class);
+        return $this->belongsToMany(Category::class)->ordered();
     }
 }

@@ -5,7 +5,7 @@
     $items = [
         ['label' => 'Home', 'icon' => 'bi-grid', 'route' => 'admin.dashboard', 'active' => ['admin.dashboard']],
         ['label' => 'Enquiries', 'icon' => 'bi-chat-left-text', 'route' => 'admin.enquiries.index', 'active' => ['admin.enquiries.*']],
-        ['label' => 'Catalogue', 'icon' => 'bi-box-seam', 'route' => 'admin.categories.index', 'active' => ['admin.categories.*', 'admin.brands.*', 'admin.products.*']],
+        ['label' => 'Categories', 'icon' => 'bi-tags', 'route' => 'admin.categories.index', 'active' => ['admin.categories.*']],
         ['label' => 'Customers', 'icon' => 'bi-people', 'route' => 'admin.customers.index', 'active' => ['admin.customers.*']],
         ['label' => 'FAQs', 'icon' => 'bi-question-circle', 'route' => 'admin.faqs.index', 'active' => ['admin.faqs.*']],
         ['label' => 'Users', 'icon' => 'bi-person-gear', 'route' => 'admin.users.index', 'active' => ['admin.users.*'], 'superAdminOnly' => true],

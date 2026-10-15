@@ -33,7 +33,7 @@
                 <tr>
                     <th scope="col">Reference</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Items</th>
+                    <th scope="col">Categories</th>
                     <th scope="col">Channel</th>
                     <th scope="col">Status</th>
                     <th scope="col">Received</th>
@@ -42,7 +42,7 @@
                     <tr wire:key="enquiry-{{ $enquiry->id }}">
                         <td data-label="Reference"><a href="{{ route('admin.enquiries.show', $enquiry) }}"><code>{{ $enquiry->reference }}</code></a></td>
                         <td data-label="Customer">{{ $enquiry->customer->business_name ?: $enquiry->customer->contact_name }}</td>
-                        <td data-label="Items">{{ $enquiry->items_count }}</td>
+                        <td data-label="Categories">{{ $enquiry->categories->pluck('name')->implode(', ') ?: '-' }}</td>
                         <td data-label="Channel">{{ $enquiry->channel->label() }}</td>
                         <td data-label="Status"><x-admin.status-pill :status="$enquiry->status" /></td>
                         <td data-label="Received" title="{{ $enquiry->created_at->format('d M Y, H:i') }}">{{ $enquiry->created_at->diffForHumans() }}</td>

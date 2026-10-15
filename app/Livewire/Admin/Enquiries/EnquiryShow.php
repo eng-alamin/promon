@@ -86,12 +86,11 @@ class EnquiryShow extends Component
 
     public function render(): View
     {
-        $enquiry = Enquiry::with(['customer', 'handler', 'items.product'])->findOrFail($this->enquiryId);
+        $enquiry = Enquiry::with(['customer', 'handler', 'categories'])->findOrFail($this->enquiryId);
 
         return view('livewire.admin.enquiries.enquiry-show', [
             'enquiry' => $enquiry,
             'statuses' => EnquiryStatus::cases(),
-            'total' => $enquiry->items->sum(fn ($item) => $item->quantity * (float) $item->unit_price),
         ]);
     }
 

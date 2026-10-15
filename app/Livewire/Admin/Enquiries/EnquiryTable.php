@@ -38,8 +38,7 @@ class EnquiryTable extends Component
         $term = $this->likeTerm();
 
         $enquiries = Enquiry::query()
-            ->with('customer')
-            ->withCount('items')
+            ->with(['customer', 'categories'])
             ->when(trim($this->search) !== '', function ($query) use ($term) {
                 $query->where(function ($inner) use ($term) {
                     $inner->where('reference', 'like', $term)

@@ -38,13 +38,13 @@ class CategoryService
     }
 
     /**
-     * @throws DomainException when products (even soft deleted ones) still use this category
+     * @throws DomainException when enquiries still use this category
      */
     public function delete(Category $category): void
     {
-        if ($category->products()->withTrashed()->exists()) {
+        if ($category->enquiries()->exists()) {
             throw new DomainException(
-                "Cannot delete \"{$category->name}\" because products use it. Make it inactive instead."
+                "Cannot delete \"{$category->name}\" because enquiries use it. Make it inactive instead."
             );
         }
 

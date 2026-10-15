@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * Saves an enquiry sent from the public website. The website has no products
- * and no prices, so the chosen categories are written at the top of the
- * enquiry message and the enquiry has no product lines.
+ * and no prices: an enquiry has the chosen categories and the visitor's message.
  */
 class EnquirySubmissionService
 {
@@ -24,25 +23,24 @@ class EnquirySubmissionService
      */
     public function submit(array $customer, array $categorySlugs, ?string $message): Enquiry
     {
-        $names = Category::active()
+        $categoryIds = Category::active()
             ->whereIn('slug', $categorySlugs)
-            ->ordered()
-            ->pluck('name')
+            ->pluck('id')
             ->all();
 
-        $text = 'Categories: ' . implode(', ', $names);
         $message = trim((string) $message);
-        if ($message !== '') {
-            $text .= "\n\n" . $message;
-        }
 
-        return DB::transaction(function () use ($customer, $text): Enquiry {
-            return Enquiry::create([
+        return DB::transaction(function () use ($customer, $categoryIds, $message): Enquiry {
+            $enquiry = Enquiry::create([
                 'customer_id' => $this->customer($customer)->id,
                 'channel' => EnquiryChannel::Form,
                 'status' => EnquiryStatus::New,
-                'message' => $text,
+                'message' => $message === '' ? null : $message,
             ]);
+
+            $enquiry->categories()->sync($categoryIds);
+
+            return $enquiry;
         });
     }
 

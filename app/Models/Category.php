@@ -6,7 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -26,9 +26,9 @@ class Category extends Model
         ];
     }
 
-    public function products(): HasMany
+    public function enquiries(): BelongsToMany
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Enquiry::class);
     }
 
     public function scopeActive(Builder $query): Builder

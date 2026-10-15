@@ -51,10 +51,21 @@ class EnquirySubmitTest extends TestCase
         $enquiry = Enquiry::firstOrFail();
         $this->assertSame('form', $enquiry->channel->value);
         $this->assertSame('new', $enquiry->status->value);
-        $this->assertStringContainsString('Categories: Chocolate, Grocery', (string) $enquiry->message);
-        $this->assertStringContainsString('50 cartons of tea', (string) $enquiry->message);
-        $this->assertSame(0, $enquiry->items()->count());
+        $this->assertSame('50 cartons of tea', $enquiry->message);
+        $this->assertSame(['Chocolate', 'Grocery'], $enquiry->categories->pluck('name')->all());
         $this->assertSame('Dhaka Mart', $enquiry->customer->business_name);
+    }
+
+    public function test_a_blank_message_is_saved_as_null(): void
+    {
+        $this->category();
+
+        $this->post(route('site.enquiry.submit'), $this->payload(['message' => '   ']))
+            ->assertRedirect(route('site.enquiry.thanks'));
+
+        $enquiry = Enquiry::firstOrFail();
+        $this->assertNull($enquiry->message);
+        $this->assertSame(['Grocery'], $enquiry->categories->pluck('name')->all());
     }
 
     public function test_at_least_one_category_is_required(): void

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Enquiries;
 
 use App\Enums\CustomerType;
+use App\Models\Category;
 use App\Models\Customer;
-use App\Models\Product;
 use App\Services\Admin\EnquiryService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class EnquiryForm extends Component
 {
-    private const MAX_ITEMS = 30;
+    private const MAX_CATEGORIES = 20;
 
     private const NEW_CUSTOMER_TEXT = ['business_name', 'email', 'phone', 'whatsapp', 'city', 'country'];
 
@@ -42,8 +42,8 @@ class EnquiryForm extends Component
 
     public ?string $message = null;
 
-    /** @var array<int, array{product_id: string, quantity: string}> */
-    public array $items = [['product_id' => '', 'quantity' => '1']];
+    /** @var array<int, string> The ids of the chosen categories (checkbox values arrive as strings). */
+    public array $categoryIds = [];
 
     /**
      * @return array<string, array<int, mixed>>
@@ -53,9 +53,8 @@ class EnquiryForm extends Component
         $rules = [
             'customerMode' => ['required', Rule::in(['existing', 'new'])],
             'message' => ['nullable', 'string', 'max:5000'],
-            'items' => ['required', 'array', 'min:1', 'max:' . self::MAX_ITEMS],
-            'items.*.product_id' => ['required', 'distinct', Rule::exists('products', 'id')->whereNull('deleted_at')],
-            'items.*.quantity' => ['required', 'integer', 'min:1', 'max:1000000'],
+            'categoryIds' => ['required', 'array', 'min:1', 'max:' . self::MAX_CATEGORIES],
+            'categoryIds.*' => ['required', 'distinct', Rule::exists('categories', 'id')->where('is_active', true)],
         ];
 
         if ($this->customerMode === 'existing') {
@@ -80,17 +79,16 @@ class EnquiryForm extends Component
     protected function messages(): array
     {
         $reach = 'Add a phone, WhatsApp number or email so you can reach this customer.';
+        $category = 'Choose at least one category.';
 
         return [
             'customerId.required' => 'Please choose a customer, or switch to "New customer".',
             'email.required_without_all' => $reach,
             'phone.required_without_all' => $reach,
             'whatsapp.required_without_all' => $reach,
-            'items.required' => 'Add at least one product.',
-            'items.*.product_id.required' => 'Please choose a product.',
-            'items.*.product_id.distinct' => 'Each product can be added only once.',
-            'items.*.quantity.required' => 'Enter a quantity.',
-            'items.*.quantity.min' => 'The quantity must be at least 1.',
+            'categoryIds.required' => $category,
+            'categoryIds.min' => $category,
+            'categoryIds.*.exists' => 'A category you chose is not available. Please refresh the page.',
         ];
     }
 
@@ -103,23 +101,6 @@ class EnquiryForm extends Component
     public function clearCustomer(): void
     {
         $this->customerId = '';
-    }
-
-    public function addItem(): void
-    {
-        if (count($this->items) < self::MAX_ITEMS) {
-            $this->items[] = ['product_id' => '', 'quantity' => '1'];
-        }
-    }
-
-    public function removeItem(int $index): void
-    {
-        if (count($this->items) <= 1) {
-            return;
-        }
-
-        unset($this->items[$index]);
-        $this->items = array_values($this->items);
     }
 
     public function save(EnquiryService $enquiries): void
@@ -141,7 +122,7 @@ class EnquiryForm extends Component
                 'type' => $this->customer_type,
             ];
 
-        $enquiry = $enquiries->createManual($customer, $this->items, $this->message, auth()->user());
+        $enquiry = $enquiries->createManual($customer, $this->categoryIds, $this->message, auth()->user());
 
         session()->flash('success', 'Enquiry created.');
 
@@ -169,9 +150,8 @@ class EnquiryForm extends Component
         return view('livewire.admin.enquiries.enquiry-form', [
             'results' => $results,
             'selectedCustomer' => $this->customerId !== '' ? Customer::find((int) $this->customerId) : null,
-            'products' => Product::orderBy('name')->get(['id', 'name', 'sku']),
+            'categories' => Category::active()->ordered()->get(['id', 'name']),
             'types' => CustomerType::cases(),
-            'maxItems' => self::MAX_ITEMS,
         ]);
     }
 

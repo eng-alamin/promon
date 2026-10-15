@@ -11,9 +11,9 @@
 
     <div class="who">
         <span class="av" aria-hidden="true">{{ Str::upper(Str::substr($user->name, 0, 1)) }}</span>
-        <div>
+        {{-- <div>
             {{ $user->name }}
             <small>{{ $user->role->label() }}</small>
-        </div>
+        </div> --}}
     </div>
 </header>

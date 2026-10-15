@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EnquiryController;
-use App\Http\Controllers\Admin\ProductController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -19,7 +18,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('logout', [LoginController::class, 'destroy'])->name('logout');
 
         Route::view('categories', 'admin.categories.index')->name('categories.index');
-        Route::view('brands', 'admin.brands.index')->name('brands.index');
 
         // Only a super admin can open these pages. Staff get a 403 page.
         Route::middleware('super_admin')->group(function () {
@@ -33,10 +31,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('enquiries', [EnquiryController::class, 'index'])->name('enquiries.index');
         Route::get('enquiries/create', [EnquiryController::class, 'create'])->name('enquiries.create');
         Route::get('enquiries/{enquiry}', [EnquiryController::class, 'show'])->name('enquiries.show');
-
-        Route::get('products', [ProductController::class, 'index'])->name('products.index');
-        Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
-        Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
     });
 });
 

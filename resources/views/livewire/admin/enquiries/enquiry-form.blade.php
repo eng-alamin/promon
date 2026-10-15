@@ -78,44 +78,26 @@
     </div>
 
     <div class="card">
-        <h2 class="sec">Products</h2>
-        <p class="hint">The price per unit is taken from the catalogue when you save. A quantity price is used when the quantity reaches it.</p>
+        <h2 class="sec">Categories</h2>
+        <p class="hint">Choose one or more categories the customer is asking about.</p>
 
-        @error('items')
+        @error('categoryIds')
+            <p class="err-msg"><i class="bi bi-exclamation-circle" aria-hidden="true"></i>{{ $message }}</p>
+        @enderror
+        @error('categoryIds.*')
             <p class="err-msg"><i class="bi bi-exclamation-circle" aria-hidden="true"></i>{{ $message }}</p>
         @enderror
 
-        @foreach ($items as $index => $item)
-            <div class="irow" wire:key="item-row-{{ $index }}">
-                <div>
-                    <label for="item-product-{{ $index }}">Product</label>
-                    <select class="f" id="item-product-{{ $index }}" wire:model="items.{{ $index }}.product_id" @error("items.$index.product_id") aria-invalid="true" aria-describedby="item-product-{{ $index }}-error" @enderror>
-                        <option value="">Choose a product</option>
-                        @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->name }}@if ($product->sku) ({{ $product->sku }})@endif</option>
-                        @endforeach
-                    </select>
-                    @error("items.$index.product_id")
-                        <p class="err-msg" id="item-product-{{ $index }}-error"><i class="bi bi-exclamation-circle" aria-hidden="true"></i>{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <label for="item-qty-{{ $index }}">Quantity</label>
-                    <input class="f" id="item-qty-{{ $index }}" type="number" min="1" inputmode="numeric" wire:model="items.{{ $index }}.quantity" @error("items.$index.quantity") aria-invalid="true" aria-describedby="item-qty-{{ $index }}-error" @enderror>
-                    @error("items.$index.quantity")
-                        <p class="err-msg" id="item-qty-{{ $index }}-error"><i class="bi bi-exclamation-circle" aria-hidden="true"></i>{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    @if (count($items) > 1)
-                        <button class="ib bad" type="button" wire:click="removeItem({{ $index }})" aria-label="Remove product row {{ $index + 1 }}"><i class="bi bi-trash" aria-hidden="true"></i></button>
-                    @endif
-                </div>
+        @if ($categories->isEmpty())
+            <p class="hint">There are no active categories. Add one in Catalogue first.</p>
+        @else
+            <div style="display:flex;flex-wrap:wrap;gap:0 28px">
+                @foreach ($categories as $category)
+                    <label class="chk" for="cat-{{ $category->id }}" wire:key="cat-{{ $category->id }}">
+                        <input id="cat-{{ $category->id }}" type="checkbox" wire:model="categoryIds" value="{{ $category->id }}"> {{ $category->name }}
+                    </label>
+                @endforeach
             </div>
-        @endforeach
-
-        @if (count($items) < $maxItems)
-            <p><button class="btn" type="button" wire:click="addItem"><i class="bi bi-plus-lg" aria-hidden="true"></i> Add another product</button></p>
         @endif
     </div>
 

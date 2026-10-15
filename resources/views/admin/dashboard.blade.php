@@ -11,15 +11,7 @@
             <div class="card"><small>New enquiries</small><b>{{ number_format($summary['new_enquiries']) }}</b></div>
             <div class="card"><small>Total enquiries</small><b>{{ number_format($summary['total_enquiries']) }}</b></div>
             <div class="card"><small>Customers</small><b>{{ number_format($summary['customers']) }}</b></div>
-            <div class="card"><small>Active products</small><b>{{ number_format($summary['active_products']) }}</b></div>
-        </div>
-
-        <h2 class="sec">Catalogue</h2>
-        <div class="grid">
-            <div class="card"><small>Categories</small><b>{{ number_format($summary['categories']) }}</b></div>
-            <div class="card"><small>Brands</small><b>{{ number_format($summary['brands']) }}</b></div>
-            <div class="card"><small>Advance order products</small><b>{{ number_format($summary['advance_order_products']) }}</b></div>
-            <div class="card"><small>Unavailable products</small><b>{{ number_format($summary['unavailable_products']) }}</b></div>
+            <div class="card"><small>Active categories</small><b>{{ number_format($summary['categories']) }}</b></div>
         </div>
 
         <h2 class="sec">Recent enquiries</h2>

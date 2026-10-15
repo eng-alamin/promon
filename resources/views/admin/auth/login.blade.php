@@ -6,7 +6,7 @@
     <div class="card">
         <div class="brand" aria-hidden="true">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(config('app.name'), 0, 1)) }}</div>
         <h1>{{ config('app.name') }} Admin</h1>
-        <p class="sub">Sign in to manage products and enquiries.</p>
+        <p class="sub">Sign in to manage enquiries.</p>
 
         <form method="POST" action="{{ route('admin.login.store') }}" data-lock novalidate>
             @csrf

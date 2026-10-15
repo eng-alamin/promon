@@ -13,7 +13,7 @@
                     <p>Nothing matches "{{ $search }}". Try a different word.</p>
                 @else
                     <h3>No categories yet</h3>
-                    <p>Add your first category to start building the catalogue.</p>
+                    <p>Add your first category. Visitors choose categories when they send an enquiry.</p>
                 @endif
             </div>
         @else
@@ -21,7 +21,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Slug</th>
-                    <th scope="col">Products</th>
+                    <th scope="col">Enquiries</th>
                     <th scope="col">Order</th>
                     <th scope="col">Status</th>
                     <th scope="col"><span class="sr-only">Actions</span></th>
@@ -30,7 +30,7 @@
                     <tr wire:key="category-{{ $category->id }}">
                         <td data-label="Name">{{ $category->name }}</td>
                         <td data-label="Slug"><code>{{ $category->slug }}</code></td>
-                        <td data-label="Products">{{ $category->products_count }}</td>
+                        <td data-label="Enquiries">{{ $category->enquiries_count }}</td>
                         <td data-label="Order">{{ $category->sort_order }}</td>
                         <td data-label="Status">
                             <button type="button" @class(['pill', 'ok' => $category->is_active]) wire:click="toggleActive({{ $category->id }})" title="Click to change" aria-label="{{ $category->name }} is {{ $category->is_active ? 'active' : 'inactive' }}. Click to change.">
@@ -91,7 +91,7 @@
         <div class="ov" wire:key="category-delete-modal" wire:keydown.escape.window="cancelDelete">
             <div class="mdl" role="alertdialog" aria-modal="true" aria-labelledby="category-delete-title">
                 <h3 id="category-delete-title">Delete category?</h3>
-                <p>"{{ $deletingCategory->name }}" will be deleted. This cannot be undone. A category that has products cannot be deleted.</p>
+                <p>"{{ $deletingCategory->name }}" will be deleted. This cannot be undone. A category used by an enquiry cannot be deleted.</p>
                 <div class="act">
                     <button class="btn" type="button" wire:click="cancelDelete">Cancel</button>
                     <button class="btn danger" type="button" wire:click="delete" wire:loading.attr="disabled" wire:target="delete">Delete</button>

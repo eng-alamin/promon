@@ -4,8 +4,6 @@
 
 @section('content')
     <div class="content">
-        @include('admin.partials.catalogue-tabs')
-
         <livewire:admin.categories.category-table />
     </div>
 @endsection

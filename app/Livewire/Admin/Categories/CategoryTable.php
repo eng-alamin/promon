@@ -151,7 +151,7 @@ class CategoryTable extends Component
         $term = $this->likeTerm();
 
         $categories = Category::query()
-            ->withCount('products')
+            ->withCount('enquiries')
             ->when(trim($this->search) !== '', function ($query) use ($term) {
                 $query->where(function ($inner) use ($term) {
                     $inner->where('name', 'like', $term)->orWhere('slug', 'like', $term);

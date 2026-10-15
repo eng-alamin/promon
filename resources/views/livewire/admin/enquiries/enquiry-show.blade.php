@@ -71,41 +71,19 @@
         @endif
     </div>
 
-    @if ($enquiry->items->isNotEmpty())
     <div class="card">
-        <h2 class="sec">Products</h2>
-        <p class="hint">Prices are the ones shown to the customer when the enquiry was made. They do not change if the catalogue changes later.</p>
+        <h2 class="sec">Categories</h2>
 
-        <table>
-            <tr>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Unit price</th>
-                <th scope="col">Line total</th>
-            </tr>
-            @foreach ($enquiry->items as $item)
-                <tr wire:key="item-{{ $item->id }}">
-                    <td data-label="Product">
-                        @if ($item->product->trashed())
-                            {{ $item->product->name }} <span class="pill">Deleted</span>
-                        @else
-                            <a href="{{ route('admin.products.edit', $item->product) }}">{{ $item->product->name }}</a>
-                        @endif
-                    </td>
-                    <td data-label="Quantity">{{ number_format($item->quantity) }}</td>
-                    <td data-label="Unit price">£{{ number_format((float) $item->unit_price, 2) }}</td>
-                    <td data-label="Line total">£{{ number_format($item->quantity * (float) $item->unit_price, 2) }}</td>
-                </tr>
-            @endforeach
-            <tr class="total">
-                <td data-label="Product"><strong>Total</strong></td>
-                <td data-label="Quantity">{{ number_format($enquiry->items->sum('quantity')) }}</td>
-                <td data-label="Unit price"></td>
-                <td data-label="Line total"><strong>£{{ number_format($total, 2) }}</strong></td>
-            </tr>
-        </table>
+        @if ($enquiry->categories->isEmpty())
+            <p class="hint">No category was chosen for this enquiry.</p>
+        @else
+            <p>
+                @foreach ($enquiry->categories as $category)
+                    <span class="pill" wire:key="enquiry-category-{{ $category->id }}">{{ $category->name }}</span>
+                @endforeach
+            </p>
+        @endif
     </div>
-    @endif
 
     @if ($enquiry->message)
         <div class="card">
@@ -131,7 +109,7 @@
     @if (auth()->user()->isSuperAdmin())
         <div class="card">
             <h2 class="sec">Delete enquiry</h2>
-            <p class="hint">This removes the enquiry and its product list for good. To keep the record, set the status to Closed instead.</p>
+            <p class="hint">This removes the enquiry for good. To keep the record, set the status to Closed instead.</p>
             <button class="btn danger" type="button" wire:click="confirmDelete">Delete enquiry</button>
         </div>
     @endif
@@ -140,7 +118,7 @@
         <div class="ov" wire:key="enquiry-delete-modal" wire:keydown.escape.window="cancelDelete">
             <div class="mdl" role="alertdialog" aria-modal="true" aria-labelledby="enquiry-delete-title">
                 <h3 id="enquiry-delete-title">Delete enquiry?</h3>
-                <p>{{ $enquiry->reference }} and its products will be deleted. This cannot be undone.</p>
+                <p>{{ $enquiry->reference }} will be deleted. This cannot be undone.</p>
                 <div class="act">
                     <button class="btn" type="button" wire:click="cancelDelete">Cancel</button>
                     <button class="btn danger" type="button" wire:click="delete" wire:loading.attr="disabled" wire:target="delete">Delete</button>

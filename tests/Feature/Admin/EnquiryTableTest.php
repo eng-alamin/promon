@@ -7,6 +7,7 @@ namespace Tests\Feature\Admin;
 use App\Enums\EnquiryChannel;
 use App\Enums\EnquiryStatus;
 use App\Livewire\Admin\Enquiries\EnquiryTable;
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Enquiry;
 use App\Models\User;
@@ -45,6 +46,17 @@ class EnquiryTableTest extends TestCase
             ->assertSee($enquiry->reference)
             ->assertSee('Dhaka Mart')
             ->assertSee('WhatsApp');
+    }
+
+    public function test_it_shows_the_categories_of_each_enquiry(): void
+    {
+        $enquiry = $this->makeEnquiry('Rahim Uddin');
+        $enquiry->categories()->sync([
+            Category::create(['name' => 'Grocery', 'slug' => 'grocery', 'sort_order' => 1])->id,
+            Category::create(['name' => 'Chocolate', 'slug' => 'chocolate', 'sort_order' => 2])->id,
+        ]);
+
+        Livewire::test(EnquiryTable::class)->assertSee('Grocery, Chocolate');
     }
 
     public function test_search_finds_by_reference_and_by_customer(): void

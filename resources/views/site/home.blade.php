@@ -74,11 +74,11 @@
       </div>
 
       <div class="story">
-        <div class="bn" lang="bn">
-          <h3>আমাদের পরিচিতি</h3>
-          <p>UK থেকে পছন্দের পণ্য আনাতে চান, কিন্তু নির্ভরযোগ্য সোর্স খুঁজে পাচ্ছেন না? PROMON LTD নিয়ে এসেছে UK থেকে সরাসরি বাংলাদেশে পণ্য অর্ডার করার সহজ সুবিধা। ব্যক্তিগত প্রয়োজন হোক কিংবা ব্যবসার জন্য Wholesale অর্ডার&mdash;আমরা আছি আপনার পাশে।</p>
-          <p style="margin-top:12px">আপনার প্রয়োজনীয় পণ্য আমাদের তালিকায় না থাকলেও জানাতে পারেন। UK থেকে Pre-Order করার সুবিধা রয়েছে।</p>
-          <p style="margin-top:12px">ঢাকা থেকে শুরু করে এখন উত্তরাতেও আমাদের কার্যক্রম সম্প্রসারিত হয়েছে। গ্রাহকদের আস্থা ও নির্ভরযোগ্য সেবা নিয়েই আমাদের এগিয়ে চলা।</p>
+        <div>
+          <h3>Our background</h3>
+          <p>Want UK products but cannot find a reliable source? PROMON LTD makes it easy to order products directly from the UK to Bangladesh. Whether it is for personal use or a wholesale order for your business, we are by your side.</p>
+          <p style="margin-top:12px">If the product you need is not on our list, just let us know. Pre-order from the UK is available.</p>
+          <p style="margin-top:12px">Starting in Dhaka, our work has now expanded to Uttara as well. We keep moving forward with the trust of our customers and reliable service.</p>
         </div>
         <div>
           <h3>Direct UK to Bangladesh Air Cargo</h3>
