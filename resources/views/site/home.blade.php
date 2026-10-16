@@ -176,7 +176,7 @@
           <p class="eyebrow">06 &mdash; Visit us in Dhaka</p>
           <h2>K Pharma</h2>
           <p>Our sister concern store in Uttara Model Town, Dhaka, Bangladesh.</p>
-          <p class="since">Since 2026</p>
+          <p class="since">Since 2006</p>
           <address>House 2/A, Road 13, Sector 4, Uttara,<br>Dhaka 1230, Bangladesh<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></address>
           <a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ urlencode('House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230, Bangladesh') }}">Open in Google Maps<span class="sr-only"> (opens in a new tab)</span></a>
         </div>
