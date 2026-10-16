@@ -19,7 +19,7 @@ class DemoContentSeeder extends Seeder
     /** question, answer, active */
     private const FAQS = [
         ['What currency are your prices in?', 'Every price is in pounds sterling (£ GBP).', true],
-        ['Who can order from Promon?', 'We welcome wholesalers and retailers.', true],
+        ['Who can order from PROMON LTD?', 'We welcome wholesalers and retailers.', true],
         ['How do I find a product category?', 'Open the Products page and use the category buttons above the products. You can also choose a category from the home page.', true],
         ['How do I place an order?', 'This website has no online checkout. Message us on WhatsApp or through the contact page with the products and quantities you need.', true],
         ['Can I place an advance order?', 'Yes, advance orders are available. Message us with the products you need.', true],
@@ -32,7 +32,7 @@ class DemoContentSeeder extends Seeder
 
     /** Email, phone, address and opening hours are left out: nothing is invented. */
     private const SETTINGS = [
-        'company_name' => 'Promon',
+        'company_name' => 'PROMON LTD',
         'tagline' => 'UK Products | Bangladesh',
         'whatsapp' => '+447405124730',
         'delivery_time' => 'Delivery time: 10 working days.',

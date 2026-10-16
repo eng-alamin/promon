@@ -14,9 +14,9 @@
           <div class="ans">{{ $faq->answer }}</div>
         </details>
       @empty
-        <p class="lead" style="margin-top:0">No questions have been added yet. Please <a class="link-gold" href="{{ route('site.home') }}#contact">contact us</a>.</p>
+        <p class="lead" style="margin-top:0">No questions have been added yet. Please <a class="link-gold" href="{{ route('site.contact') }}">contact us</a>.</p>
       @endforelse
-      <p class="lead">Cannot find your answer? <a class="link-gold" href="{{ route('site.home') }}#contact">Contact us</a>.</p>
+      <p class="lead">Cannot find your answer? <a class="link-gold" href="{{ route('site.contact') }}">Contact us</a>.</p>
     </div>
   </section>
 </x-site.layout>

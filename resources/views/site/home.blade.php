@@ -49,7 +49,7 @@
         <li><b>Direct UK to Bangladesh</b><span>Air cargo service</span></li>
         <li><b>Wholesale &amp; Retail</b><span>Orders available</span></li>
         <li><b>Up to 10 working days</b><span>Depends on product and customs</span></li>
-        <li><b>Serving Bangladesh</b><span>Since 2018</span></li>
+        <li><b>Serving Bangladesh</b><span>Since 2021</span></li>
       </ul>
     </div>
   </section>
@@ -60,35 +60,12 @@
         <div class="logo-ring"><img src="{{ asset('assets/site/img/logo.jpeg') }}" width="320" height="320" alt="PROMON LTD - UK Products | Bangladesh - Bringing You the Best" loading="lazy"></div>
         <div class="copy">
           <p class="eyebrow">01 &mdash; About</p>
-          <h2>A trusted name between the UK and Bangladesh.</h2>
-          <p style="margin-top:20px">PROMON LTD sells medicine, groceries and everyday UK products. We supply wholesalers throughout the UK and export to Bangladesh whenever our customers need it.</p>
+          <h2>Your Trusted UK Shopping &amp; Global Delivery Partner.</h2>
+          <p class="about-tag">Bringing Original UK Products to Bangladesh &amp; Beyond <i>&bull;</i> Since 2021</p>
+          <p style="margin-top:20px">Looking for genuine UK products at competitive prices? Whether you are shopping for yourself, sending gifts to loved ones, running a retail business, or sourcing products in bulk, PROMON LTD is here to make UK shopping easier, safer, and more convenient.</p>
+          <p>Established in 2021, PROMON LTD specialises in sourcing, supplying, and delivering original UK products to individual customers, retailers, wholesalers, and businesses.</p>
           <p>In Dhaka, our products are available at our sister concern, K Pharma medicine store in Uttara.</p>
-          <div class="company-card">
-            <dl>
-              <dt>Business name</dt><dd>Promon LTD</dd>
-              <dt>Company number</dt><dd>13358479</dd>
-              <dt>Registered address</dt><dd>1A Wilmot Street, Bolton, Manchester, BL1 3LL, United Kingdom</dd>
-            </dl>
-          </div>
-        </div>
-      </div>
-
-      <div class="story">
-        <div>
-          <h3>Our background</h3>
-          <p>Want UK products but cannot find a reliable source? PROMON LTD makes it easy to order products directly from the UK to Bangladesh. Whether it is for personal use or a wholesale order for your business, we are by your side.</p>
-          <p style="margin-top:12px">If the product you need is not on our list, just let us know. Pre-order from the UK is available.</p>
-          <p style="margin-top:12px">Starting in Dhaka, our work has now expanded to Uttara as well. We keep moving forward with the trust of our customers and reliable service.</p>
-        </div>
-        <div>
-          <h3>Direct UK to Bangladesh Air Cargo</h3>
-          <ul>
-            <li>Products collected directly from the UK</li>
-            <li>Safe packaging and cargo service</li>
-            <li>Focus on originality and quality of every product</li>
-            <li>Delivery usually within 10 working days (depends on the product and the customs process)</li>
-            <li>Pre-order available if your product is not on our list</li>
-          </ul>
+          <p class="about-more"><a class="link-gold" href="{{ route('site.about') }}">More &hellip;<span class="sr-only"> about PROMON LTD</span></a></p>
         </div>
       </div>
     </div>
@@ -100,22 +77,31 @@
       <h2>What we sell.</h2>
       <p class="lead">Choose a category and send us an enquiry. We reply with the available products, quantities and a wholesale quote.</p>
 
-      <ul class="cats">
-        @forelse ($categories as $category)
-          <li style="display:contents">
-            <a class="cat" href="{{ route('site.enquiry', ['category' => $category->slug]) }}">
-              <svg viewBox="0 0 24 24" aria-hidden="true">{!! $icons[$category->slug] ?? $defaultIcon !!}</svg>
-              <span>
-                <h3>{{ $category->name }}</h3>
-                @if (isset($blurbs[$category->slug]))<p>{{ $blurbs[$category->slug] }}</p>@endif
-                <em>Enquire &rarr;</em>
-              </span>
-            </a>
-          </li>
-        @empty
+      @php
+        $first = $categories->take(12);
+        $rest = $categories->slice(12);
+      @endphp
+      @if ($categories->isEmpty())
+        <ul class="cats">
           <li class="cat" style="grid-column:1/-1"><span><h3>Categories coming soon</h3><p>Please contact us with the product you need.</p></span></li>
-        @endforelse
-      </ul>
+        </ul>
+      @else
+        <ul class="cats">
+          @foreach ($first as $category)
+            <x-site.cat-tile :category="$category" :icons="$icons" :blurbs="$blurbs" :default-icon="$defaultIcon" />
+          @endforeach
+        </ul>
+        @if ($rest->isNotEmpty())
+          <details class="cats-more">
+            <summary><span class="when-closed">Show all {{ $categories->count() }} categories</span><span class="when-open">Show fewer</span></summary>
+            <ul class="cats cats--more">
+              @foreach ($rest as $category)
+                <x-site.cat-tile :category="$category" :icons="$icons" :blurbs="$blurbs" :default-icon="$defaultIcon" />
+              @endforeach
+            </ul>
+          </details>
+        @endif
+      @endif
 
       <p class="note">Your product is not in the list? Tell us what you need. We can pre-order it from the UK. Medicines are supplied subject to the import rules that apply.</p>
     </div>
@@ -198,24 +184,35 @@
     </div>
   </section>
 
+  @if ($reviews->isNotEmpty())
+    <section class="section section--alt" id="reviews">
+      <div class="wrap">
+        <p class="eyebrow">07 &mdash; Reviews</p>
+        <h2>What our customers say.</h2>
+        <div class="reviews">
+          @foreach ($reviews as $review)
+            <x-site.review-card :review="$review" :limit="190" />
+          @endforeach
+        </div>
+        @if ($reviewCount > $reviews->count())
+          <p class="about-more"><a class="link-gold" href="{{ route('site.reviews') }}">More reviews &hellip;<span class="sr-only"> from our customers</span></a></p>
+        @endif
+      </div>
+    </section>
+  @endif
+
   <section class="section" id="contact">
     <div class="wrap">
       <div class="contact">
         <div>
-          <p class="eyebrow">07 &mdash; Contact</p>
+          <p class="eyebrow">08 &mdash; Contact</p>
           <h2>Let's work together.</h2>
-          <dl>
-            <div class="row"><dt>United Kingdom</dt><dd>PROMON LTD<br>1A Wilmot Street, Bolton, Manchester, BL1 3LL<br>Company number 13358479</dd></div>
-            <div class="row"><dt>Bangladesh</dt><dd>K Pharma (sister concern)<br>House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></dd></div>
-            <div class="row"><dt>Direct</dt><dd>
-              <a href="mailto:{{ $email }}">{{ $email }}</a>
-              @if (strlen($waDigits) >= 8)<br>WhatsApp: <a href="https://wa.me/{{ $waDigits }}" target="_blank" rel="noopener">{{ $waShown }}<span class="sr-only"> (opens in a new tab)</span></a>@endif
-            </dd></div>
-          </dl>
+          <p class="lead">Address, email, phone and WhatsApp are on our contact page.</p>
+          <a class="link-gold" href="{{ route('site.contact') }}">Open the contact page &rarr;</a>
         </div>
         <div class="cta-box">
           <h3>Which UK product do you need?</h3>
-          <p>Choose your categories and send an enquiry. Or message us on WhatsApp with a photo and the details to get a price.</p>
+          <p>Choose your categories and send us the enquiry on WhatsApp or by form.</p>
           <a class="btn btn--gold" href="{{ route('site.enquiry') }}">Send an enquiry</a>
           @if (strlen($waDigits) >= 8)<a class="btn btn--line" href="https://wa.me/{{ $waDigits }}" target="_blank" rel="noopener">WhatsApp<span class="sr-only"> (opens in a new tab)</span></a>@endif
         </div>

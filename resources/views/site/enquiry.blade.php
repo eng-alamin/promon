@@ -20,7 +20,7 @@
         </div>
       @endif
 
-      <form method="POST" action="{{ route('site.enquiry.submit') }}" novalidate>
+      <form method="POST" action="{{ route('site.enquiry.submit') }}" novalidate data-enquiry-form>
         @csrf
         <div class="hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" value=""></label></div>
 
@@ -90,7 +90,13 @@
         </div>
 
         <p class="lead" style="font-size:.85rem;margin-top:24px">Give at least one of email, WhatsApp or phone so we can reply.</p>
-        <button type="submit" class="btn btn--gold" style="margin-top:26px">Send enquiry</button>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:26px">
+          @if (strlen($waDigits) >= 8)
+            <button type="button" class="btn btn--gold" data-wa-send data-wa-number="{{ $waDigits }}">Send on WhatsApp</button>
+          @endif
+          <button type="submit" class="btn {{ strlen($waDigits) >= 8 ? 'btn--line' : 'btn--gold' }}">Send by form</button>
+        </div>
+        <p class="err" data-wa-error role="alert" hidden>Please choose at least one category first.</p>
       </form>
     </div>
   </section>

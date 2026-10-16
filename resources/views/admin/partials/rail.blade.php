@@ -8,6 +8,7 @@
         ['label' => 'Categories', 'icon' => 'bi-tags', 'route' => 'admin.categories.index', 'active' => ['admin.categories.*']],
         ['label' => 'Customers', 'icon' => 'bi-people', 'route' => 'admin.customers.index', 'active' => ['admin.customers.*']],
         ['label' => 'FAQs', 'icon' => 'bi-question-circle', 'route' => 'admin.faqs.index', 'active' => ['admin.faqs.*']],
+        ['label' => 'Reviews', 'icon' => 'bi-star', 'route' => 'admin.reviews.index', 'active' => ['admin.reviews.*']],
         ['label' => 'Users', 'icon' => 'bi-person-gear', 'route' => 'admin.users.index', 'active' => ['admin.users.*'], 'superAdminOnly' => true],
         ['label' => 'Settings', 'icon' => 'bi-gear', 'route' => 'admin.settings.edit', 'active' => ['admin.settings.*'], 'superAdminOnly' => true],
     ];

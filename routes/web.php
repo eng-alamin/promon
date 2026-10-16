@@ -27,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::view('customers', 'admin.customers.index')->name('customers.index');
         Route::view('faqs', 'admin.faqs.index')->name('faqs.index');
+        Route::view('reviews', 'admin.reviews.index')->name('reviews.index');
 
         Route::get('enquiries', [EnquiryController::class, 'index'])->name('enquiries.index');
         Route::get('enquiries/create', [EnquiryController::class, 'create'])->name('enquiries.create');
@@ -38,15 +39,16 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::name('site.')->group(function () {
     Route::get('/', \App\Http\Controllers\Site\HomeController::class)->name('home');
 
-    // The public site has no product pages and no prices. Old links go to the matching home page section.
+    // The public site has no product pages and no prices. Old product links go to the home page section.
     Route::redirect('/products', '/#products', 301)->name('shop');
-    Route::redirect('/about', '/#about', 301)->name('about');
-    Route::redirect('/contact', '/#contact', 301)->name('contact');
 
+    Route::get('/about', [\App\Http\Controllers\Site\PageController::class, 'about'])->name('about');
+    Route::get('/contact', [\App\Http\Controllers\Site\PageController::class, 'contact'])->name('contact');
     Route::get('/faq', [\App\Http\Controllers\Site\PageController::class, 'faq'])->name('faq');
+    Route::get('/reviews', [\App\Http\Controllers\Site\PageController::class, 'reviews'])->name('reviews');
     Route::get('/sitemap.xml', \App\Http\Controllers\Site\SitemapController::class)->name('sitemap');
 
     Route::get('/enquiry', [\App\Http\Controllers\Site\EnquiryController::class, 'show'])->name('enquiry');
     Route::post('/enquiry', [\App\Http\Controllers\Site\EnquiryController::class, 'store'])->middleware('throttle:5,1')->name('enquiry.submit');
     Route::get('/enquiry/sent', [\App\Http\Controllers\Site\EnquiryController::class, 'thanks'])->name('enquiry.thanks');
-});
+}); 

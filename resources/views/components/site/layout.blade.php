@@ -1,12 +1,20 @@
 @php
     $home = route('site.home');
+    // Header: Home plus the sections of the home page (# links).
     $links = [
-        ['label' => 'About', 'href' => $home . '#about', 'key' => 'about'],
-        ['label' => 'Products', 'href' => $home . '#products', 'key' => 'products'],
-        ['label' => 'Wholesale & Export', 'href' => $home . '#services', 'key' => 'services'],
-        ['label' => 'How it works', 'href' => $home . '#how', 'key' => 'how'],
-        ['label' => 'Payment', 'href' => $home . '#payment', 'key' => 'payment'],
-        ['label' => 'Contact', 'href' => $home . '#contact', 'key' => 'contact'],
+        ['label' => 'Home', 'href' => $home],
+        ['label' => 'About', 'href' => $home . '#about'],
+        ['label' => 'Wholesale & Export', 'href' => $home . '#services'],
+        ['label' => 'How it works', 'href' => $home . '#how'],
+        ['label' => 'Payment', 'href' => $home . '#payment'],
+    ];
+    // Footer: About and Products on the home page, plus every separate page.
+    $footerLinks = [
+        ['label' => 'About', 'href' => $home . '#about'],
+        ['label' => 'Contact', 'href' => route('site.contact')],
+        ['label' => 'Reviews', 'href' => route('site.reviews')],
+        ['label' => 'Products', 'href' => $home . '#products'],
+        ['label' => 'FAQ', 'href' => route('site.faq')],
     ];
     $pageTitle = $title !== '' ? $title . ' | ' . $company : $company . ' | UK Products to Bangladesh';
     $waUrl = strlen($waDigits) >= 8 ? 'https://wa.me/' . $waDigits : null;
@@ -40,8 +48,8 @@
   <header class="site-header">
     <div class="wrap">
       <a href="{{ $home }}" class="brand" aria-label="{{ $company }} home">
-        <img src="{{ asset('assets/site/img/logo-small.png') }}" width="52" height="52" alt="{{ $company }} logo">
-        <span><b>Promon</b><small>Limited</small></span>
+        <img src="{{ asset('assets/site/img/logo-small.png') }}" width="56" height="56" alt="{{ $company }} logo">
+        <span><b>PROMON LTD</b></span>
       </a>
       <nav class="nav" aria-label="Main">
         @foreach ($links as $link)
@@ -66,6 +74,11 @@
   <footer class="site-footer">
     <div class="wrap">
       <p class="tag">{{ $company }} &middot; <i>Bringing You the Best</i></p>
+      <nav class="footer-nav" aria-label="Footer">
+        @foreach ($footerLinks as $link)
+          <a href="{{ $link['href'] }}">{{ $link['label'] }}</a>
+        @endforeach
+      </nav>
       <small>&copy; {{ date('Y') }} {{ $company }} &middot; Quality &middot; Trust &middot; Worldwide Connection</small>
     </div>
   </footer>

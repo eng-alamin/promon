@@ -26,6 +26,30 @@ class PagesTest extends TestCase
             ->assertSee('GB66HBUK40180001211277');
     }
 
+    public function test_home_about_section_has_a_more_link_to_the_about_page(): void
+    {
+        $this->get(route('site.home'))
+            ->assertOk()
+            ->assertSee('Established in 2021')
+            ->assertSee(route('site.about'), false)
+            ->assertDontSee('Why Choose PROMON LTD?');
+    }
+
+    public function test_about_page_shows_the_full_description(): void
+    {
+        $this->get(route('site.about'))
+            ->assertOk()
+            ->assertSee('Your Trusted UK Shopping &amp; Global Delivery Partner', false)
+            ->assertSee('Established in 2021')
+            ->assertSee('Medicines & Healthcare Products')
+            ->assertSee('Subject to applicable import and export regulations')
+            ->assertSee('Wholesale & Bulk Supply')
+            ->assertSee('Why Choose PROMON LTD?')
+            ->assertSee('+44 7405 124730')
+            ->assertSee('13358479')
+            ->assertDontSee('Since 2018');
+    }
+
     public function test_home_page_lists_only_active_categories_and_no_prices(): void
     {
         Category::create(['name' => 'Grocery', 'slug' => 'grocery', 'sort_order' => 1, 'is_active' => true]);

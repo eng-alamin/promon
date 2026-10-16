@@ -12,7 +12,7 @@ class SitemapController extends Controller
 {
     public function __invoke(CatalogueService $catalogue): Response
     {
-        $urls = [route('site.home'), route('site.enquiry'), route('site.faq')];
+        $urls = [route('site.home'), route('site.about'), route('site.enquiry'), route('site.contact'), route('site.faq'), route('site.reviews')];
 
         foreach ($catalogue->categories() as $category) {
             $urls[] = route('site.enquiry', ['category' => $category->slug]);

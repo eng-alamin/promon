@@ -8,6 +8,7 @@ use App\Enums\CustomerType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\StoreEnquiryRequest;
 use App\Services\Site\CatalogueService;
+use App\Services\Site\ContactService;
 use App\Services\Site\EnquirySubmissionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,7 +16,7 @@ use Illuminate\Http\Request;
 
 class EnquiryController extends Controller
 {
-    public function show(Request $request, CatalogueService $catalogue): View
+    public function show(Request $request, CatalogueService $catalogue, ContactService $contact): View
     {
         $categories = $catalogue->categories();
 
@@ -31,6 +32,7 @@ class EnquiryController extends Controller
             'categories' => $categories,
             'preselected' => $preselected,
             'defaultType' => $type?->value ?? CustomerType::Retailer->value,
+            'waDigits' => $contact->details()['wa_digits'],
         ]);
     }
 
