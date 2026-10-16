@@ -14,13 +14,11 @@ class PagesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_home_page_shows_company_details_and_payment_methods(): void
+    public function test_home_page_shows_the_company_name_and_payment_methods(): void
     {
         $this->get(route('site.home'))
             ->assertOk()
             ->assertSee('PROMON LTD')
-            ->assertSee('13358479')
-            ->assertSee('promonltd@gmail.com')
             ->assertSee('K Pharma')
             ->assertSee('Telegraphic Transfer')
             ->assertSee('GB66HBUK40180001211277');
@@ -62,17 +60,29 @@ class PagesTest extends TestCase
             ->assertDontSee('£');
     }
 
-    public function test_admin_settings_override_the_default_email(): void
+    public function test_contact_page_shows_the_company_details(): void
+    {
+        $this->get(route('site.contact'))
+            ->assertOk()
+            ->assertSee('13358479')
+            ->assertSee('promonltd@gmail.com')
+            ->assertSee('K Pharma')
+            ->assertSee('+44 7405 124730');
+    }
+
+    public function test_admin_settings_override_the_default_email_on_the_contact_page(): void
     {
         Setting::create(['key' => 'email', 'value' => 'hello@example.co.uk']);
 
-        $this->get(route('site.home'))->assertOk()->assertSee('hello@example.co.uk');
+        $this->get(route('site.contact'))
+            ->assertOk()
+            ->assertSee('hello@example.co.uk')
+            ->assertDontSee('promonltd@gmail.com');
     }
 
-    public function test_old_product_and_contact_links_redirect_to_the_home_page(): void
+    public function test_old_product_links_redirect_and_unknown_product_pages_are_not_found(): void
     {
         $this->get('/products')->assertRedirect('/#products');
-        $this->get('/contact')->assertRedirect('/#contact');
         $this->get('/products/some-product')->assertNotFound();
     }
 
