@@ -175,7 +175,8 @@
         <div>
           <p class="eyebrow">06 &mdash; Visit us in Dhaka</p>
           <h2>K Pharma</h2>
-          <p>Our sister concern medicine store in Uttara, stocking PROMON's UK products.</p>
+          <p>Our sister concern store in Uttara Model Town, Dhaka, Bangladesh.</p>
+          <p class="since">Since 2026</p>
           <address>House 2/A, Road 13, Sector 4, Uttara,<br>Dhaka 1230, Bangladesh<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></address>
           <a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ urlencode('House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230, Bangladesh') }}">Open in Google Maps<span class="sr-only"> (opens in a new tab)</span></a>
         </div>
@@ -194,9 +195,13 @@
             <x-site.review-card :review="$review" :limit="190" />
           @endforeach
         </div>
-        @if ($reviewCount > $reviews->count())
-          <p class="about-more"><a class="link-gold" href="{{ route('site.reviews') }}">More reviews &hellip;<span class="sr-only"> from our customers</span></a></p>
-        @endif
+        <p class="about-more">
+          @if ($reviewCount > $reviews->count())
+            <a class="link-gold" href="{{ route('site.reviews') }}">More reviews &hellip;<span class="sr-only"> from our customers</span></a>
+            &nbsp;&middot;&nbsp;
+          @endif
+          <a class="link-gold" href="{{ route('site.reviews') }}#write-review">Write a review</a>
+        </p>
       </div>
     </section>
   @endif

@@ -16,11 +16,10 @@ class NavigationTest extends TestCase
         $html = $this->get(route('site.contact'))->assertOk()->getContent();
         $header = substr($html, (int) strpos($html, '<header'), (int) strpos($html, '</header>') - (int) strpos($html, '<header'));
 
-        foreach (['>Home<', '#about">About<', '#services">Wholesale &amp; Export<', '#how">How it works<', '#payment">Payment<'] as $needle) {
+        foreach (['>Home<', '#about">About<', '#services">Wholesale &amp; Export<', '#how">How it works<', '#payment">Payment<', '>Contact<'] as $needle) {
             $this->assertStringContainsString($needle, $header);
         }
 
-        $this->assertStringNotContainsString('>Contact<', $header);
         $this->assertStringNotContainsString('>Reviews<', $header);
     }
 

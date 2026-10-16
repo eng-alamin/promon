@@ -7,6 +7,7 @@
         ['label' => 'Wholesale & Export', 'href' => $home . '#services'],
         ['label' => 'How it works', 'href' => $home . '#how'],
         ['label' => 'Payment', 'href' => $home . '#payment'],
+        ['label' => 'Contact', 'href' => route('site.contact')],
     ];
     // Footer: About and Products on the home page, plus every separate page.
     $footerLinks = [
@@ -49,7 +50,7 @@
     <div class="wrap">
       <a href="{{ $home }}" class="brand" aria-label="{{ $company }} home">
         <img src="{{ asset('assets/site/img/logo-small.png') }}" width="56" height="56" alt="{{ $company }} logo">
-        <span><b>PROMON LTD</b></span>
+        <img class="brand__wordmark" src="{{ asset('assets/site/img/promon-ltd-logo.svg') }}" width="171" height="38" alt="{{ $company }}">
       </a>
       <nav class="nav" aria-label="Main">
         @foreach ($links as $link)

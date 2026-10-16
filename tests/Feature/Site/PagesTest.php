@@ -123,4 +123,15 @@ class PagesTest extends TestCase
     {
         $this->get(route('site.home'))->assertSee('noindex', false);
     }
+
+    public function test_k_pharma_block_shows_the_new_text_on_home_and_contact(): void
+    {
+        foreach ([route('site.home'), route('site.contact')] as $url) {
+            $this->get($url)
+                ->assertOk()
+                ->assertSee('Uttara Model Town, Dhaka, Bangladesh')
+                ->assertSee('Since 2026')
+                ->assertDontSee('stocking');
+        }
+    }
 }

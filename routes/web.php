@@ -46,6 +46,7 @@ Route::name('site.')->group(function () {
     Route::get('/contact', [\App\Http\Controllers\Site\PageController::class, 'contact'])->name('contact');
     Route::get('/faq', [\App\Http\Controllers\Site\PageController::class, 'faq'])->name('faq');
     Route::get('/reviews', [\App\Http\Controllers\Site\PageController::class, 'reviews'])->name('reviews');
+    Route::post('/reviews', [\App\Http\Controllers\Site\ReviewController::class, 'store'])->middleware('throttle:3,10')->name('reviews.submit');
     Route::get('/sitemap.xml', \App\Http\Controllers\Site\SitemapController::class)->name('sitemap');
 
     Route::get('/enquiry', [\App\Http\Controllers\Site\EnquiryController::class, 'show'])->name('enquiry');
