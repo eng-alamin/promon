@@ -265,40 +265,49 @@ ol {
     gap: 20px;
 }
 .brand {
-    display: flex;
+    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 5px;
     text-decoration: none;
+    line-height: 1;
 }
-.brand img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: transparent;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-.brand img.brand__wordmark {
-    width: auto;
-    height: 38px;
-    max-width: 100%;
-    border-radius: 0;
-    object-fit: contain;
-}
-.brand b {
-    display: block;
-    font: 500 1.7rem/1 var(--font-display);
-    letter-spacing: 0.08em;
+.brand__name {
+    font-family: "Cormorant Garamond", var(--font-display);
+    font-weight: 600;
+    font-size: 2.1rem;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     white-space: nowrap;
-}
-.brand small {
-    display: block;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
+    background: linear-gradient(180deg, #f6dc9c 0%, #d6aa4a 55%, #b4852c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: var(--gold);
-    margin-top: 5px;
+    text-shadow: none;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45));
+}
+.brand__limited {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.brand__limited i {
+    flex: 1;
+    height: 1px;
+    background: var(--gold-soft);
+    opacity: 0.8;
+}
+.brand__limited em {
+    font-style: normal;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.58rem;
+    letter-spacing: 0.42em;
+    margin-right: -0.42em;
+    text-transform: uppercase;
+    color: var(--text);
 }
 .nav {
     display: flex;
@@ -1380,16 +1389,11 @@ ol {
 }
 
 @media (max-width: 480px) {
-    .brand {
-        gap: 10px;
+    .brand__name {
+        font-size: 1.75rem;
     }
-    .brand img {
-        width: 48px;
-        height: 48px;
-    }
-    .brand img.brand__wordmark {
-        width: auto;
-        height: 28px;
+    .brand__limited em {
+        font-size: 0.5rem;
     }
 }
 
