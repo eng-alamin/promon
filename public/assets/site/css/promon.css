@@ -265,12 +265,25 @@ ol {
     gap: 20px;
 }
 .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    line-height: 1;
+}
+.brand__mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: transparent;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.brand__text {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
-    text-decoration: none;
-    line-height: 1;
 }
 .brand__name {
     font-family: "Cormorant Garamond", var(--font-display);
@@ -1389,6 +1402,13 @@ ol {
 }
 
 @media (max-width: 480px) {
+    .brand {
+        gap: 10px;
+    }
+    .brand__mark {
+        width: 48px;
+        height: 48px;
+    }
     .brand__name {
         font-size: 1.75rem;
     }

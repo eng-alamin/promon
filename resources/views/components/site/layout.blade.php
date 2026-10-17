@@ -49,8 +49,11 @@
   <header class="site-header">
     <div class="wrap">
       <a href="{{ $home }}" class="brand" aria-label="{{ $company }} home">
-        <span class="brand__name">PROMON</span>
-        <span class="brand__limited" aria-hidden="true"><i></i><em>Limited</em><i></i></span>
+        <img class="brand__mark" src="{{ asset('assets/site/img/logo-small.png') }}" width="56" height="56" alt="{{ $company }} logo">
+        <span class="brand__text">
+          <span class="brand__name">PROMON</span>
+          <span class="brand__limited" aria-hidden="true"><i></i><em>Limited</em><i></i></span>
+        </span>
       </a>
       <nav class="nav" aria-label="Main">
         @foreach ($links as $link)
