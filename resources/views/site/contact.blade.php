@@ -17,7 +17,7 @@
         <div>
           <dl>
             <div class="row"><dt>United Kingdom</dt><dd>PROMON LTD<br>1A Wilmot Street, Bolton, Manchester, BL1 3LL<br>Company number 13358479</dd></div>
-            <div class="row"><dt>Bangladesh</dt><dd>K Pharma (sister concern, since 2026)<br>House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></dd></div>
+            <div class="row"><dt>Bangladesh</dt><dd>K Pharma (sister concern, since 2006)<br>House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></dd></div>
             <div class="row"><dt>Direct</dt><dd>
               <a href="mailto:{{ $email }}">{{ $email }}</a>
               @if (strlen($waDigits) >= 8)<br>WhatsApp: <a href="https://wa.me/{{ $waDigits }}" target="_blank" rel="noopener">{{ $whatsapp }}<span class="sr-only"> (opens in a new tab)</span></a>@endif
@@ -41,7 +41,7 @@
           <p class="eyebrow">Visit us in Dhaka</p>
           <h2>K Pharma</h2>
           <p>Our sister concern store in Uttara Model Town, Dhaka, Bangladesh.</p>
-          <p class="since">Since 2026</p>
+          <p class="since">Since 2006</p>
           <address>House 2/A, Road 13, Sector 4, Uttara,<br>Dhaka 1230, Bangladesh<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></address>
           <a class="btn btn--gold btn--sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query={{ $mapQuery }}">Open in Google Maps<span class="sr-only"> (opens in a new tab)</span></a>
         </div>
