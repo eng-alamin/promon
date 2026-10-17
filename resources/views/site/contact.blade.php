@@ -16,7 +16,7 @@
       <div class="contact">
         <div>
           <dl>
-            <div class="row"><dt>United Kingdom</dt><dd>PROMON LTD<br>1A Wilmot Street, Bolton, Manchester, BL1 3LL<br>Company number 13358479</dd></div>
+            <div class="row"><dt>United Kingdom</dt><dd>PROMON LTD<br>Company number 13358479</dd></div>
             <div class="row"><dt>Bangladesh</dt><dd>K Pharma (sister concern, since 2006)<br>House 2/A, Road 13, Sector 4, Uttara, Dhaka 1230<br><a href="tel:+8801676213722">{{ $phoneBd }}</a></dd></div>
             <div class="row"><dt>Direct</dt><dd>
               <a href="mailto:{{ $email }}">{{ $email }}</a>

@@ -71,7 +71,6 @@
           <dl>
             <dt>Business name</dt><dd>PROMON LTD</dd>
             <dt>Company number</dt><dd>13358479</dd>
-            <dt>Registered address</dt><dd>1A Wilmot Street, Bolton, Manchester, BL1 3LL, United Kingdom</dd>
           </dl>
         </div>
       </div>

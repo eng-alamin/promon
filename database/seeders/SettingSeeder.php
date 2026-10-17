@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
             'currency' => 'GBP',
             'email' => 'promonltd@gmail.com',
             'phone' => '',
-            'address' => '1A Wilmot Street, Bolton, Manchester, BL1 3LL, United Kingdom',
+            'address' => '',
             'working_hours' => '',
         ];
 

@@ -83,7 +83,7 @@
           <a href="{{ $link['href'] }}">{{ $link['label'] }}</a>
         @endforeach
       </nav>
-      <small>&copy; {{ date('Y') }} {{ $company }} &middot; Quality &middot; Trust &middot; Worldwide Connection</small>
+      <small>&copy; 2021 {{ $company }} &middot; Quality &middot; Trust &middot; Worldwide Connection</small>
     </div>
   </footer>
 
