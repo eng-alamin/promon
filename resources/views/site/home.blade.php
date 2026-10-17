@@ -64,7 +64,6 @@
           <p class="about-tag">Bringing Original UK Products to Bangladesh &amp; Beyond <i>&bull;</i> Since 2021</p>
           <p style="margin-top:20px">Looking for genuine UK products at competitive prices? Whether you are shopping for yourself, sending gifts to loved ones, running a retail business, or sourcing products in bulk, PROMON LTD is here to make UK shopping easier, safer, and more convenient.</p>
           <p>Established in 2021, PROMON LTD specialises in sourcing, supplying, and delivering original UK products to individual customers, retailers, wholesalers, and businesses.</p>
-          <p>In Dhaka, our products are available at our sister concern, K Pharma medicine store in Uttara.</p>
           <p class="about-more"><a class="link-gold" href="{{ route('site.about') }}">More &hellip;<span class="sr-only"> about PROMON LTD</span></a></p>
         </div>
       </div>
@@ -152,19 +151,6 @@
           <li><b>BT</b><div><h3>Bank transfer</h3><p>Transfer directly from your Bangladesh bank account to our account.</p></div></li>
           <li><b>LC</b><div><h3>Letter of Credit (LC)</h3><p>Open an LC through your bank and send the payment for your order.</p></div></li>
         </ul>
-
-        <div class="bank">
-          <h3>Our bank details</h3>
-          <dl>
-            <div class="row"><dt>Account name</dt><dd>PROMON LTD</dd></div>
-            <div class="row"><dt>Bank</dt><dd>HSBC, Harry Weston Road, Binley, Coventry, CV3 2SH</dd></div>
-            <div class="row"><dt>Sort code</dt><dd>40-18-00</dd></div>
-            <div class="row"><dt>Account number</dt><dd>01211277</dd></div>
-            <div class="row"><dt>IBAN</dt><dd>GB66HBUK40180001211277</dd></div>
-            <div class="row"><dt>BIC / SWIFT</dt><dd>HBUKGB4194O</dd></div>
-          </dl>
-          <p class="foot">International payments: use the IBAN and BIC. Please send your enquiry first and confirm the order with us before you pay.</p>
-        </div>
       </div>
     </div>
   </section>

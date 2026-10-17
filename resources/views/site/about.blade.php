@@ -67,7 +67,6 @@
         <p>Looking for genuine UK products at competitive prices? Whether you are shopping for yourself, sending gifts to loved ones, running a retail business, or sourcing products in bulk, PROMON LTD is here to make UK shopping easier, safer, and more convenient.</p>
         <p>Established in 2021, PROMON LTD specialises in sourcing, supplying, and delivering original UK products to individual customers, retailers, wholesalers, and businesses.</p>
         <p>We currently focus on Bangladesh and the United Kingdom, with international sourcing and delivery assistance available for customers in other countries upon request.</p>
-        <p>In Dhaka, our products are available at our sister concern, K Pharma medicine store in Uttara.</p>
         <div class="company-card">
           <dl>
             <dt>Business name</dt><dd>PROMON LTD</dd>
