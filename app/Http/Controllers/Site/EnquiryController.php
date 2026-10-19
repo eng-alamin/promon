@@ -13,6 +13,9 @@ use App\Services\Site\EnquirySubmissionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Mail\NewEnquiryMail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class EnquiryController extends Controller
 {
@@ -36,8 +39,11 @@ class EnquiryController extends Controller
         ]);
     }
 
-    public function store(StoreEnquiryRequest $request, EnquirySubmissionService $service): RedirectResponse
-    {
+    public function store(
+        StoreEnquiryRequest $request,
+        EnquirySubmissionService $service,
+        ContactService $contact
+    ): RedirectResponse {
         $data = $request->validated();
 
         $enquiry = $service->submit(
@@ -45,6 +51,12 @@ class EnquiryController extends Controller
             array_values($data['categories']),
             $data['message'] ?? null,
         );
+
+        try {
+            Mail::to($contact->details()['email'])->send(new NewEnquiryMail($enquiry));
+        } catch (\Throwable $e) {
+            Log::error('Enquiry mail failed: ' . $e->getMessage());
+        }
 
         return redirect()->route('site.enquiry.thanks')->with('enquiry_reference', $enquiry->reference);
     }

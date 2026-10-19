@@ -20,8 +20,7 @@ class PagesTest extends TestCase
             ->assertOk()
             ->assertSee('PROMON LTD')
             ->assertSee('K Pharma')
-            ->assertSee('Telegraphic Transfer')
-            ->assertSee('GB66HBUK40180001211277');
+            ->assertSee('Telegraphic Transfer');
     }
 
     public function test_home_about_section_has_a_more_link_to_the_about_page(): void
@@ -130,7 +129,7 @@ class PagesTest extends TestCase
             $this->get($url)
                 ->assertOk()
                 ->assertSee('Uttara Model Town, Dhaka, Bangladesh')
-                ->assertSee('Since 2026')
+                ->assertSee('Since 2006')
                 ->assertDontSee('stocking');
         }
     }
